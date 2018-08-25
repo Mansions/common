@@ -1093,7 +1093,7 @@ def deprecateTelegram2Fa(userID):
 	Checks whether the user has enabled telegram 2fa on his account.
 	If so, disables 2fa and returns True.
 	If not, return False.
- 	:param userID: id of the user
+	:param userID: id of the user
 	:return: True if 2fa has been disabled from the account otherwise False
 	"""
 	try:
@@ -1101,10 +1101,12 @@ def deprecateTelegram2Fa(userID):
 	except ProgrammingError:
 		# The table doesnt exist
 		return False
- 	if telegram2Fa is not None:
+
+	if telegram2Fa is not None:
 		glob.db.execute("DELETE FROM 2fa_telegram WHERE userid = %s LIMIT 1", (userID,))
 		return True
 	return False
+
 def unlockAchievement(userID, achievementID):
 	glob.db.execute("INSERT INTO users_achievements (user_id, achievement_id, `time`) VALUES"
 					"(%s, %s, %s)", [userID, achievementID, int(time.time())])
